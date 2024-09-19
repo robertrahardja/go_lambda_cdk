@@ -2,25 +2,25 @@ import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as cdk from 'aws-cdk-lib';
+import { GoFunction } from '@aws-cdk/aws-lambda-go-alpha'
 
 export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
     // define resources here...
-    const goFunction = new lambda.Function(this, 'GoFunction', {
 
-      runtime: lambda.Runtime.GO_1_X,
-      handler: 'main',
-      code: lambda.Code.fromAsset('lambda'),
-
+    const goFunction = new GoFunction(this, 'GoFunction', {
+      entry: 'lambda',
+      functionName: 'GoLambda',
     })
-
 
     const functionUrl = goFunction.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
       cors: {
         allowedOrigins: ['*'],
+        allowedMethods: [lambda.HttpMethod.ALL],
+        allowedHeaders: ['*'],
       }
     })
 

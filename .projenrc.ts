@@ -8,16 +8,14 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   projenrcTs: true,
 
   deps: [
-    'aws-lambda',
-    'constructs',
+    // 'aws-lambda',
+    // 'constructs',
+    '@aws-cdk/aws-lambda-go-alpha',
   ],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
 });
 
-project.addTask('build:lambda', {
-  exec: 'cd lambda && GOOS=linux GOARCH=amd64 go build -o main main.go',
-});
 
 project.synth();
